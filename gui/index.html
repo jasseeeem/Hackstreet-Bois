@@ -12,9 +12,11 @@
 </head>
 
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="notification.css">
 
 <body>
-
+    <div id="notification-container">
+    </div>
     <div class="header">
         News Aggregator
     </div>
@@ -76,10 +78,15 @@
 
         function add_keyword() {
             let key = document.getElementById("key").value.trim();
+            if (key.length <= 1) {
+                ShowNotification("Enter a valid keyword", "error");
+                return
+            }
             key = key[0].toUpperCase() + key.substr(1).toLowerCase();
             for (let _key in keywords) {
                 if (keywords[_key] == key) {
                     document.getElementById("key").value = "";
+                    ShowNotification("Keyword already added", "error");
                     return;
                 }
             }
@@ -90,8 +97,10 @@
 
         function ViewResult() {
             let yourUrl = "http://127.0.0.1:1212/getresult";
-            if (keywords.length == 0)
+            if (keywords.length == 0) {
+                ShowNotification("Enter atleast one keyword", "error");
                 return;
+            }
             let keys = keywords[0];
             for (let key = 1; key < keywords.length; key++)
                 keys += "," + keywords[key];
@@ -106,7 +115,15 @@
             xhr.onreadystatechange = (e) => {
                 if (xhr.readyState == 4) {
                     data = JSON.parse(xhr.response);
-                    document.getElementById("value").innerHTML = data.result;
+                    youtubelinks = data.youtubelink;
+                    redditlinks = data.redditlink;
+                    let yt_html = "<H2>YouTube Links<BR></H2>";
+                    for (let link in youtubelinks)
+                        yt_html += `<a href='${youtubelinks[link][0]}'>${youtubelinks[link][1]}</a><BR>`;
+                    let rl_html = "<H2>Reddit Links<BR></H2>";
+                    for (let link in redditlinks)
+                        rl_html += `<a href='${redditlinks[link][0]}'>${redditlinks[link][1]}</a><BR>`;
+                    document.getElementById("value").innerHTML = data.result + yt_html + rl_html;
                 }
             }
         }
@@ -118,6 +135,7 @@
             }
         }
     </script>
+    <script src="notification.js"></script>
 </body>
 
 </html>
