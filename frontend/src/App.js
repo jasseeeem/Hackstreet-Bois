@@ -1,6 +1,6 @@
 import "./App.css";
 // import HttpCall from "./components/HttpCall";
-// import WebSocketCall from "./components/WebSocketCall";
+import Navbar from "./components/Navbar";
 import { io } from "socket.io-client";
 import { useEffect, useState, useRef } from "react";
 import Typed from "typed.js";
@@ -65,30 +65,37 @@ function App() {
   }, []);
 
   return (
-    <div className="mt-5 mb-5 container">
-      <h1>News Aggregator by Hackstreet Bois</h1>
-      <>
-        <input
-          type="text"
-          value={keywords}
-          className="form-control"
-          onChange={(e) => {
-            setKeywords(e.target.value);
-          }}
-        />
-        <button onClick={handleClick}>Submit</button>
-        {showOutputBox && (
-          <div className="output-box">
-            {paras.length > 1 &&
-              paras.map((para, i) => {
-                if (i !== paras.length - 1) return <p>{para}</p>;
-                return <></>;
-              })}
-            <p ref={textRef}></p>
-          </div>
-        )}
-      </>
-    </div>
+    <div className="bg-darkblue h-100 m-0 p-0 text-white">
+      <Navbar />
+      <h2 className=" ml-5 text-red">News Aggregator by Hackstreet Bois</h2>
+      <div className="w-4xl flex justify-center align-center">
+        <div className="flex flex-row align-center">
+          <input className="bg-gray-50 border border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto p-2 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5"
+            type="text"
+            value={keywords}
+            onChange={(e) => {
+              setKeywords(e.target.value);
+            }}
+          />
+          <button class="bg-transparent hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded w-full ml-5 h-10"
+            Button
+            onClick={handleClick}>Submit
+          </button>
+        </div>
+        {
+          showOutputBox && (
+            <div className="output-box">
+              {paras.length > 1 &&
+                paras.map((para, i) => {
+                  if (i !== paras.length - 1) return <p>{para}</p>;
+                  return <></>;
+                })}
+              <p ref={textRef}></p>
+            </div>
+          )
+        }
+      </div >
+    </div >
   );
 }
 
