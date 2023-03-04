@@ -28,6 +28,7 @@ function App() {
     setLoading(true);
     setShowOutputBox(true);
     socket.emit("paras", { keywords: keywords });
+    getSummary(keywords)
     return;
   };
 
