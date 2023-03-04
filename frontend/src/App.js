@@ -71,19 +71,22 @@ function App() {
         <input
           type="text"
           value={keywords}
+          className="form-control"
           onChange={(e) => {
             setKeywords(e.target.value);
           }}
         />
         <button onClick={handleClick}>Submit</button>
-        <div className="output-box">
-          {paras.length > 1 &&
-            paras.map((para, i) => {
-              if (i !== paras.length - 1) return <p>{para}</p>;
-              return <></>;
-            })}
-          <p ref={textRef}></p>
-        </div>
+        {showOutputBox && (
+          <div className="output-box">
+            {paras.length > 1 &&
+              paras.map((para, i) => {
+                if (i !== paras.length - 1) return <p>{para}</p>;
+                return <></>;
+              })}
+            <p ref={textRef}></p>
+          </div>
+        )}
       </>
     </div>
   );
