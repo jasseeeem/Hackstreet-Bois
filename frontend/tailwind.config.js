@@ -19,7 +19,15 @@ module.exports = {
             transform: "translateY(0px)",
           },
           "100%": {
-            transform: "translateY(-200px)",
+            transform: "translateY(-180px)",
+          },
+        },
+        godown: {
+          "0%": {
+            transform: "translateY(0px)",
+          },
+          "100%": {
+            transform: "translateY(40px)",
           },
         },
         appear: {
@@ -33,6 +41,7 @@ module.exports = {
       },
       animation: {
         goup: "goup 0.5s ease-in-out forwards",
+        godown: "godown 0.5s ease-in-out forwards",
         appear: "appear 1s ease-in-out forwards",
       },
     },

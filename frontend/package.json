@@ -10,6 +10,8 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
+    "react-tag-input": "^6.8.1",
+    "react-tag-input-component": "^2.0.2",
     "socket.io": "^4.5.1",
     "socket.io-client": "^4.5.1",
     "typed.js": "^2.0.12",
