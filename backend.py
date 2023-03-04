@@ -18,7 +18,6 @@ def login():
       query = query.split(",")
       links, redditlinks, youtubelinks = get_results(query)
       result = writeSummary(rank_media(links, query))
-      print("\n\nYOUTUBE LINKS",youtubelinks)
       ytlink= rank_media_yt(youtubelinks, query)
       return {"status":"OK","title":"Title","description":"Description","result":result,"youtubelink":ytlink, "redditlink": redditlinks} , 200
 

@@ -51,13 +51,10 @@ def rank_media_yt(media_list, keywords):
     scores = {}
     _media_list=[]
     for media in media_list:
-        print(media)
         try:
             score = get_youtube_score(media[1], keywords)
             _media_list.append([media[0],media[1],score])
         except Exception as e:
                 print(f"Error processing {media}: {e}")
-    print(_media_list)
     sorted_scores =sorted(_media_list, key = lambda person: person[2])
-    print(sorted_scores)
     return sorted_scores

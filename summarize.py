@@ -10,15 +10,18 @@ def writeSummary(links):
     
     contents = []
     for link in links:
-        article = newspaper.Article(link)
-        article.download()
-        article.parse()
-        paras = []
-        for para in article.text.split("\n\n"):
-            if para.endswith('.'):
-                paras.append(para)
-        if len(paras) != 0:
-            contents.append(paras)
+        try:
+            article = newspaper.Article(link)
+            article.download()
+            article.parse()
+            paras = []
+            for para in article.text.split("\n\n"):
+                if para.endswith('.'):
+                    paras.append(para)
+            if len(paras) != 0:
+                contents.append(paras)
+        except:
+            None
 
     PROPORTION = 0.2
 
