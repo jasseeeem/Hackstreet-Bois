@@ -65,11 +65,11 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-darkblue h-screen m-0 p-0 text-white font-thin">
+    <div className="bg-darkblue h-screen m-0 p-0 text-white font-thin flex flex-col">
       <Navbar />
-      <div className="w-4xl flex justify-center align-center">
-        <div className="flex flex-row align-center">
-          <input className="bg-gray-50 border border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto p-2 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5"
+      <div className="w-4xl flex align-center justify-center align-center flex-grow">
+        <div className="flex align-center justify-center">
+          <input className="bg-gray-50 border border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block h-10 w-auto p-2 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5"
             type="text"
             value={keywords}
             onChange={(e) => {
