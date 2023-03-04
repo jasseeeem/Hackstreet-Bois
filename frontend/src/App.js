@@ -70,6 +70,7 @@ function App() {
     <div className="static divide-y divide-y-white bg-darkblue h-screen m-0 p-0 text-white font-thin flex flex-col">
       <Navbar />
       <div className="w-4xl flex flex-col justify-center items-center flex-grow h-full">
+        <hr class="h-0.5 opacity-50 bg-gray-200 border-0 dark:bg-gray-700" />
         <div
           className={`flex flex-row mb-40 w-1/2 h-16 items-center ${
             showOutputBox && "animate-goup"
