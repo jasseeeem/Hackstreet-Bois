@@ -67,6 +67,7 @@ function App() {
   return (
     <div className="bg-darkblue h-screen m-0 p-0 text-white font-thin flex flex-col">
       <Navbar/>
+      <hr class="h-0.5 opacity-50 bg-gray-200 border-0 dark:bg-gray-700"/>
         <div className="w-4xl flex flex-col justify-center items-center flex-grow">
         <div className="flex flex-row mb-40 w-1/2 align-center">
           <input
