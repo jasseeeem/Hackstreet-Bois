@@ -65,8 +65,8 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-darkblue h-screen m-0 p-0 text-white font-thin">
-      <Navbar />
+    <div className="bg-darkblue h-screen  m-0 p-0 text-white font-thin">
+      <Navbar className="border-2 border-gray-800" />
       <div className="w-4xl flex flex-col justify-center items-center">
         <div className="flex flex-row align-center">
           <input
@@ -86,7 +86,7 @@ function App() {
           </button>
         </div>
         {showOutputBox && (
-          <div className="bg-normalblue transition ease-in-out w-1/2 h-screen p-10 font-normal rounded-xl">
+          <div className="bg-normalblue transition ease-in-out w-1/2 h-96 mt-4 p-10 font-normal rounded-xl font-mono shadow-xl tracking-wide leading-6">
             {paras.length > 1 &&
               paras.map((para, i) => {
                 if (i !== paras.length - 1) return <p>{para}</p>;
