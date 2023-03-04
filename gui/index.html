@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>News Aggregator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="description" content="">
     <meta name="viewpor" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="">
@@ -24,12 +25,14 @@
             <div class="mb-6 pt-4">
 
                 <label class="formbold-form-label formbold-form-label-2">
-                  Search
+                  KeyWords
                 </label>
 
                 <div class="formbold-mb-5 formbold-file-input-q">
-                    <input type="text" id="query" placeholder="Type your query.." onkeypress="handle(event)">
+                    <input type="text" id="key" placeholder="Type your keyword.." onkeypress="handle(event)">
+                    <i class="fa fa-plus" aria-hidden="true" onclick="add_keyword()"></i>
                 </div>
+                <div class="formbold-mb-5 formbold-keywords" id="keywords"></div>
 
             </div>
 
@@ -43,11 +46,57 @@
     </div>
 
     <script>
+        let keywords = [];
+
+        function keywords_update() {
+            let keywords_div = document.getElementById("keywords");
+            let html = "";
+            for (let key in keywords) {
+                let keyword = keywords[key];
+                html += `<div class="keyword-wrap">
+                        <div class="keyword">
+                            <div class="keyvalue">${keyword}</div>
+                            <i class="fa fa-times" aria-hidden="true" onclick="remove_keyword('${keyword}')"></i>
+                        </div>
+                    </div>`;
+            }
+            keywords_div.innerHTML = html;
+        }
+
+        function remove_keyword(val) {
+            let _keywords = [];
+            for (let key in keywords) {
+                let keyword = keywords[key];
+                if (keyword != val)
+                    _keywords.push(keyword);
+            }
+            keywords = _keywords;
+            keywords_update();
+        }
+
+        function add_keyword() {
+            let key = document.getElementById("key").value.trim();
+            key = key[0].toUpperCase() + key.substr(1).toLowerCase();
+            for (let _key in keywords) {
+                if (keywords[_key] == key) {
+                    document.getElementById("key").value = "";
+                    return;
+                }
+            }
+            keywords.push(key);
+            keywords_update();
+            document.getElementById("key").value = "";
+        }
+
         function ViewResult() {
             let yourUrl = "http://127.0.0.1:1212/getresult";
-            const query = document.getElementById("query").value;
+            if (keywords.length == 0)
+                return;
+            let keys = keywords[0];
+            for (let key = 1; key < keywords.length; key++)
+                keys += "," + keywords[key];
             var data = new FormData();
-            data.append('query', query);
+            data.append('query', keys);
             var xhr = new XMLHttpRequest();
             xhr.open("POST", yourUrl, true);
             xhr.send(data);
@@ -65,7 +114,7 @@
         function handle(e) {
             if (e.keyCode === 13) {
                 e.preventDefault(); // Ensure it is only this code that runs
-                ViewResult();
+                add_keyword();
             }
         }
     </script>

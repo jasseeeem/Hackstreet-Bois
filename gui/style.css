@@ -135,6 +135,19 @@ body {
     height: 100%;
 }
 
+.formbold-file-input-q {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formbold-file-input-q .fa {
+    margin: 0px 15px;
+    font-size: 1.4rem;
+    color: #6a64f1;
+    cursor: pointer;
+}
+
 .formbold-file-input-q input {
     padding: 8px;
     width: 100%;
@@ -257,6 +270,35 @@ body {
     width: 100%;
     height: 2px;
     background-color: rgb(52, 52, 52);
+}
+
+.keyword {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid rgb(34, 30, 30);
+    border-radius: 5px;
+}
+
+.keyword-wrap {
+    display: inline-block;
+    width: fit-content;
+    margin: 3px;
+}
+
+.keyword .fa {
+    margin-left: 10px;
+    color: #0000005f;
+}
+
+.keyword .fa:hover {
+    color: #000;
+    cursor: pointer;
+}
+
+.formbold-keywords {
+    display: block;
 }
 
 @media (min-width: 540px) {
