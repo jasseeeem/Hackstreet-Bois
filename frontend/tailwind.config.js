@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["JetBrains Monoer", "monospace"]
+        sans: ["Inter", "sans-serif"]
       },
       colors: {
         darkblue: '#24293e',
