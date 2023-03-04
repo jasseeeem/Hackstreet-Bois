@@ -6,8 +6,6 @@
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: "JetBrains Mono", sans-serif;
 }
@@ -16,6 +14,7 @@ html,
 body {
   height: 100%;
   width: 100%;
+  /* margin: 0 20px; */
 }
 
 .App {
@@ -23,6 +22,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0px 25%;
 }
 
 .App-logo {
@@ -69,12 +69,22 @@ body {
   color: red;
 }
 
+.form-control {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  background-color: var(--gray);
+  border: none;
+  border-radius: 8px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+  resize: none;
+}
+
 .output-box {
   background-color: lightgray;
-  width: 75%;
-  height: 80%;
-  margin: 25px;
-  padding: 10px 25px;
+  /* width: 75%; */
+  /* height: 60vh; */
   background-color: var(--gray);
   border-radius: 8px;
   box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.1);
