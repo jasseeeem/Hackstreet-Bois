@@ -233,12 +233,6 @@ body {
     color: var(--Grayish-Blue);
 }
 
-.feature__img {
-    position: absolute;
-    bottom: 10%;
-    right: 10%;
-}
-
 #file {
     max-height: 200px;
     max-width: 56%;
