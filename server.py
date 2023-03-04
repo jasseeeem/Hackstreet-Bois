@@ -5,6 +5,8 @@ from flask import Flask, request,jsonify
 from flask_socketio import SocketIO,emit
 from flask_cors import CORS
 import time
+from summarize import writeSummary
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -23,7 +25,8 @@ def handle_message(data):
     """event listener when client types a message"""
     print("data from the front end: ",str(data))
     for i in range(3):
-        emit('paras', {'para': "The Wall Street Journal reported that the U.S. Department of Energy has shifted its stance on the origin of the COVID-19 pandemic. It now concludes, with that the pandemic most likely arose from a laboratory leak in Wuhan, China. "})
+        result = writeSummary(rank_media(links, query))
+        emit('paras', {'para': result})
         print('Message ' + str(i))
         time.sleep(30)
 

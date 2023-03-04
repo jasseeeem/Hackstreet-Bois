@@ -1,16 +1,18 @@
 import requests
 from bs4 import BeautifulSoup
-import finder
 
 def get_website_score(url, keywords):
     """
     Returns a score for a news website based on the number of times the input keywords appear in its homepage.
     """
-    print(url)
-    html = requests.get(url).text
+    html = requests.get(url, timeout=10).text
     soup = BeautifulSoup(html, 'html.parser')
     text = soup.get_text().lower()
-    score = sum([text.count(keyword.lower()) for keyword in keywords])
+    score = 0
+    for i in range(len(keywords)):
+        weight = 1 + 0.1 * i
+        count = text.count(keywords[i].lower())
+        score += weight * count
     return score
 
 def get_youtube_score(url, keywords):
@@ -33,11 +35,26 @@ def rank_media(media_list, keywords):
     """
     scores = {}
     for media in media_list:
-        if 'youtube' in media:
-            score = get_youtube_score(media, keywords)
-        else:
+        try:
             score = get_website_score(media, keywords)
-        scores[media] = score
-        print(score)
+            scores[media] = score
+        except Exception as e:
+                print(f"Error processing {media}: {e}")
     sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:5]
+    sorted_scores = [x[0] for x in sorted_scores]
+    return sorted_scores
+
+def rank_media_yt(media_list, keywords):
+    """
+    Ranks a list of news websites and YouTube videos based on the number of times the input keywords appear in their content.
+    """
+    scores = {}
+    _media_list=[]
+    for media in media_list:
+        try:
+            score = get_youtube_score(media[1], keywords)
+            _media_list.append([media[0],media[1],score])
+        except Exception as e:
+                print(f"Error processing {media}: {e}")
+    sorted_scores =sorted(_media_list, key = lambda person: person[2])
     return sorted_scores
