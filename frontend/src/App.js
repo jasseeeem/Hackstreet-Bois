@@ -65,9 +65,8 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-darkblue h-100 m-0 p-0 text-white">
+    <div className="bg-darkblue h-screen m-0 p-0 text-white font-thin">
       <Navbar />
-      <h2 className=" ml-5 text-red">News Aggregator by Hackstreet Bois</h2>
       <div className="w-4xl flex justify-center align-center">
         <div className="flex flex-row align-center">
           <input className="bg-gray-50 border border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto p-2 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5"
