@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewpor" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<link rel="stylesheet" href="style.css">
+
+<body>
+
+    <div class="header">
+        News Aggregator
+    </div>
+    <div class="line"></div>
+
+    <div class="formbold-main-wrapper">
+        <div class="formbold-form-wrapper">
+            <div class="mb-6 pt-4">
+
+                <label class="formbold-form-label formbold-form-label-2">
+                  Search
+                </label>
+
+                <div class="formbold-mb-5 formbold-file-input-q">
+                    <input type="text" id="query" placeholder="Type your query.." onkeypress="handle(event)">
+                </div>
+
+            </div>
+            <div id="preview-image-container">
+                <img id="preview-image" src="" alt="imagehere">
+            </div>
+
+            <button class="formbold-btn w-full" onclick="ViewResult()">Go</button>
+
+            <div id="answer-container" class="feature feature-four">
+                <h2 class="feature__title">Answer</h2>
+                <p class="feature__desc" id="value"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function ViewResult() {
+            let yourUrl = "http://127.0.0.1:1212/getresult";
+            const query = document.getElementById("query").value;
+            var data = new FormData();
+            data.append('query', query);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", yourUrl, true);
+            xhr.send(data);
+            let answerElem = document.getElementById("answer-container");
+            answerElem.style.display = "block";
+            document.getElementById("value").innerHTML = "Processing... Please Wait ";
+            xhr.onreadystatechange = (e) => {
+                if (xhr.readyState == 4) {
+                    data = JSON.parse(xhr.response);
+                    document.getElementById("value").innerHTML = data.result;
+                }
+            }
+        }
+
+        function handle(e) {
+            if (e.keyCode === 13) {
+                e.preventDefault(); // Ensure it is only this code that runs
+                ViewResult();
+            }
+        }
+    </script>
+</body>
+
+</html>
