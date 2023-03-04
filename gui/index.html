@@ -117,12 +117,13 @@
                     data = JSON.parse(xhr.response);
                     youtubelinks = data.youtubelink;
                     redditlinks = data.redditlink;
+                    console.log(data);
                     let yt_html = "<H2>YouTube Links<BR></H2>";
                     for (let link in youtubelinks)
-                        yt_html += `<a href='${youtubelinks[link][0]}'>${youtubelinks[link][1]}</a><BR>`;
+                        yt_html += `<a href='${youtubelinks[link][1]}'>${youtubelinks[link][0]}</a><BR>`;
                     let rl_html = "<H2>Reddit Links<BR></H2>";
                     for (let link in redditlinks)
-                        rl_html += `<a href='${redditlinks[link][0]}'>${redditlinks[link][1]}</a><BR>`;
+                        rl_html += `<a href='${redditlinks[link][1]}'>${redditlinks[link][0]}</a><BR>`;
                     document.getElementById("value").innerHTML = data.result + yt_html + rl_html;
                 }
             }

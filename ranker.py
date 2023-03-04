@@ -8,7 +8,11 @@ def get_website_score(url, keywords):
     html = requests.get(url, timeout=10).text
     soup = BeautifulSoup(html, 'html.parser')
     text = soup.get_text().lower()
-    score = sum([text.count(keywords[i].lower()) * (len(keywords) - i) for i in len(keywords)])
+    score = 0
+    for i in range(len(keywords)):
+        weight = 1 + 0.1 * i
+        count = text.count(keywords[i].lower())
+        score += weight * count
     return score
 
 def get_youtube_score(url, keywords):
@@ -32,12 +36,28 @@ def rank_media(media_list, keywords):
     scores = {}
     for media in media_list:
         try:
-            if 'youtube' in media:
-                score = get_youtube_score(media, keywords)
-            else:
-                score = get_website_score(media, keywords)
+            score = get_website_score(media, keywords)
             scores[media] = score
         except Exception as e:
                 print(f"Error processing {media}: {e}")
     sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:5]
+    sorted_scores = [x[0] for x in sorted_scores]
+    return sorted_scores
+
+def rank_media_yt(media_list, keywords):
+    """
+    Ranks a list of news websites and YouTube videos based on the number of times the input keywords appear in their content.
+    """
+    scores = {}
+    _media_list=[]
+    for media in media_list:
+        print(media)
+        try:
+            score = get_youtube_score(media[1], keywords)
+            _media_list.append([media[0],media[1],score])
+        except Exception as e:
+                print(f"Error processing {media}: {e}")
+    print(_media_list)
+    sorted_scores =sorted(_media_list, key = lambda person: person[2])
+    print(sorted_scores)
     return sorted_scores

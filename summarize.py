@@ -1,7 +1,9 @@
 from transformers import pipeline
 import newspaper
 import math
-import tqdm
+from tqdm import tqdm
+from finder import get_results
+from ranker import rank_media
 
 def writeSummary(links):
     summarizer = pipeline("summarization")
@@ -16,7 +18,6 @@ def writeSummary(links):
                 paras.append(para)
         if len(paras) != 0:
             contents.append(paras)
-            count += 1
 
     PROPORTION = 0.2
 
@@ -44,8 +45,11 @@ def writeSummary(links):
         summary += result[0]['summary_text'] + " "
 
     final_summary = ""
-    for sentence in summary.split(" . "):
+    for sentence in summary.split(". "):
         if len(sentence) > 1:
             final_summary += sentence[0].upper() + sentence[1:] + ". "
     
     return final_summary
+
+links, red, yt = get_results(["coronavirus"])
+#print(writeSummary(rank_media(links, ["coronavirus"])))
