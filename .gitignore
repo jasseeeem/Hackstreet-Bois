@@ -3,3 +3,5 @@ newaggs.py
 newsaggs1.py
 newsaggs2.py
 newsaggs3.py
+env/
+__pycache__/

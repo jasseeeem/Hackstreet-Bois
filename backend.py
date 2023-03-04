@@ -15,8 +15,8 @@ def login():
    if request.method == 'POST':
       query = request.form['query']
       query = query.split(",")
-      print(query)
-      result = rank_media(get_results(query), query)
+      links, redditlinks = get_results(query)
+      result = rank_media(links, query)
       return {"status":"OK","title":"Title","descrpition":"Description","result":result} , 200
    if request.method == 'GET':
       query = request.args.get('query')

@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import finder
 
 def get_website_score(url, keywords):
     """
@@ -9,7 +8,7 @@ def get_website_score(url, keywords):
     html = requests.get(url, timeout=10).text
     soup = BeautifulSoup(html, 'html.parser')
     text = soup.get_text().lower()
-    score = sum([text.count(keyword.lower()) for keyword in keywords])
+    score = sum([text.count(keywords[i].lower()) * (len(keywords) - i) for i in len(keywords)])
     return score
 
 def get_youtube_score(url, keywords):
@@ -42,5 +41,3 @@ def rank_media(media_list, keywords):
                 print(f"Error processing {media}: {e}")
     sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
     return sorted_scores
-
-print(rank_media(finder.get_results(["Coronavirus"]), ["Coronavirus"]))
