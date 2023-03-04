@@ -65,8 +65,8 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-darkblue h-screen  m-0 p-0 text-white font-thin">
-      <Navbar className="border-2 border-gray-800" />
+    <div className="bet bg-darkblue h-screen  m-0 p-0 text-white font-thin">
+      <Navbar className="" />
       <div className="w-4xl flex flex-col justify-center items-center">
         <div className="flex flex-row align-center">
           <input
