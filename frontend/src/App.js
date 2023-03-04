@@ -14,20 +14,28 @@ const socket = io("localhost:5001/", {
 });
 
 function App() {
-  const [keywords, setKeywords] = useState("");
+  const [keywords, setKeywords] = useState([]);
   const [paras, setParas] = useState("");
   const [currentPara, setCurrentPara] = useState("");
   const [loading, setLoading] = useState(false);
   const [showOutputBox, setShowOutputBox] = useState(false);
   const textRef = useRef();
-  const [selected, setSelected] = useState([]);
 
   const handleClick = (e) => {
     e.preventDefault();
     setParas([]);
     setLoading(true);
     setShowOutputBox(true);
-    socket.emit("paras", { keywords: keywords });
+    kw = keywords
+    if (kw.length == 0)
+      return;
+    let keys = kw[0];
+    for (let key = 1; key < kw.length; key++)
+      keys += "," + kw[key];
+
+    
+    console.log(keys, "\n",keywords)
+    socket.emit("paras", { data: keys });
     getSummary(keywords)
     return;
   };
@@ -73,14 +81,13 @@ function App() {
       <div className="w-4xl flex flex-col justify-center items-center flex-grow h-full">
         <hr class="h-0.5 opacity-50 bg-gray-200 border-0 dark:bg-gray-700" />
         <div
-          className={`flex flex-row mb-40 w-1/2 h-16 items-center ${
-            showOutputBox && "animate-goup"
-          }`}
+          className={`flex flex-row mb-40 w-1/2 h-16 items-center ${showOutputBox && "animate-goup"
+            }`}
         >
           <div className="w-full text-black font-semibold h-full">
             <TagsInput
-              value={selected}
-              onChange={setSelected}
+              value={keywords}
+              onChange={setKeywords}
               name="keywords"
               placeHolder="Enter keywords and press enter"
               classNames={["p-3"]}
@@ -95,9 +102,8 @@ function App() {
         </div>
         {showOutputBox && (
           <div
-            className={`absolute bg-normalblue transition ease-in-out w-1/2 h-3/5 mt-4 p-10 font-normal rounded-xl font-mono shadow-xl tracking-wide leading-6 ${
-              showOutputBox && "animate-appear animate-godown"
-            }`}
+            className={`absolute bg-normalblue transition ease-in-out w-1/2 h-3/5 mt-4 p-10 font-normal rounded-xl font-mono shadow-xl tracking-wide leading-6 ${showOutputBox && "animate-appear animate-godown"
+              }`}
           >
             {paras.length > 1 &&
               paras.map((para, i) => {

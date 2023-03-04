@@ -6,7 +6,8 @@ from flask_socketio import SocketIO,emit
 from flask_cors import CORS
 import time
 from summarize import writeSummary
-
+from ranker import rank_media
+from finder import get_results
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -24,11 +25,10 @@ def connected():
 def handle_message(data):
     """event listener when client types a message"""
     print("data from the front end: ",str(data))
-    for i in range(3):
-        result = writeSummary(rank_media(links, query))
-        emit('paras', {'para': result})
-        print('Message ' + str(i))
-        time.sleep(30)
+    links, redditlinks, youtubelinks = get_results(data)
+    result = writeSummary(rank_media(links, data))
+    emit('paras', {'para': result})
+    time.sleep(30)
 
 @socketio.on("disconnect")
 def disconnected():
