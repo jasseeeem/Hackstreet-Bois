@@ -223,7 +223,7 @@ body {
 
 .feature {
     position: relative;
-    max-width: 25rem;
+    max-width: 80%;
     height: 15rem;
     margin: 2rem auto;
     padding: 2em;
