@@ -1,5 +1,8 @@
 from flask import Flask, redirect, url_for, request
 from flask_cors import CORS, cross_origin
+from finder import get_results
+from ranker import rank_media
+
 app = Flask(__name__)
 CORS(app)
 
@@ -11,7 +14,15 @@ def success(name):
 def login():
    if request.method == 'POST':
       query = request.form['query']
-      return {"status":"OK","title":"Title","descrpition":"Description","result":"OK<BR><BR>Recived query : "+query} , 200
+      query = query.split(",")
+      print(query)
+      result = rank_media(get_results(query), query)
+      return {"status":"OK","title":"Title","descrpition":"Description","result":result} , 200
+   if request.method == 'GET':
+      query = request.args.get('query')
+      query = query.split("-")
+      result = rank_media(get_results(query), query)
+      return {"status":"OK","title":"Title","descrpition":"Description","result":result} , 200
 
 if __name__ == '__main__':
    app.run(host='localhost', port=1212)

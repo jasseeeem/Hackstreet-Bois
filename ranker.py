@@ -6,6 +6,7 @@ def get_website_score(url, keywords):
     """
     Returns a score for a news website based on the number of times the input keywords appear in its homepage.
     """
+    print(url)
     html = requests.get(url).text
     soup = BeautifulSoup(html, 'html.parser')
     text = soup.get_text().lower()
@@ -37,7 +38,6 @@ def rank_media(media_list, keywords):
         else:
             score = get_website_score(media, keywords)
         scores[media] = score
+        print(score)
     sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:5]
     return sorted_scores
-
-print(rank_media(finder.get_results(), ["Covid lab leak"]))
