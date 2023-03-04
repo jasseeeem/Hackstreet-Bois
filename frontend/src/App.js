@@ -65,13 +65,18 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-darkblue h-screen m-0 p-0 text-white font-thin flex flex-col">
-      <Navbar/>
+    <div className="static divide-y divide-y-white bg-darkblue h-screen m-0 p-0 text-white font-thin flex flex-col">
+      <Navbar />
       <hr class="h-0.5 opacity-50 bg-gray-200 border-0 dark:bg-gray-700"/>
-        <div className="w-4xl flex flex-col justify-center items-center flex-grow">
-        <div className="flex flex-row mb-40 w-1/2 align-center">
+
+      <div className="w-4xl flex flex-col justify-center items-center flex-grow">
+        <div
+          className={`flex flex-row mb-40 w-1/2 align-center ${
+            showOutputBox && "animate-goup"
+          }`}
+        >
           <input
-            className="bg-stone-300 border shadow-lg border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+            className="bg-stone-300 border shadow-lg border-gray-300 focus:outline-none text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-2 px-4"
             type="text"
             value={keywords}
             onChange={(e) => {
@@ -79,7 +84,7 @@ function App() {
             }}
           />
           <button
-            class="bg-transparent transition hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-5 h-10"
+            class="bg-transparent transition hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent hover:cursor-pointer rounded-lg ml-5 h-full"
             Button
             onClick={handleClick}
           >
@@ -87,10 +92,15 @@ function App() {
           </button>
         </div>
         {showOutputBox && (
-          <div className="bg-normalblue transition ease-in-out w-1/2 h-screen p-10 font-normal rounded-xl">
+          <div
+            className={`absolute bg-normalblue transition ease-in-out w-1/2 h-3/5 mt-4 p-10 font-normal rounded-xl font-mono shadow-xl tracking-wide leading-6 ${
+              showOutputBox && "animate-appear"
+            }`}
+          >
             {paras.length > 1 &&
               paras.map((para, i) => {
-                if (i !== paras.length - 1) return <p>{para}</p>;
+                if (i !== paras.length - 1)
+                  return <p className="mb-4">{para}</p>;
                 return <></>;
               })}
             <p ref={textRef}></p>
