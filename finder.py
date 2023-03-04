@@ -1,5 +1,6 @@
 from pygooglenews import GoogleNews
 import praw
+from youtubesearchpython import VideosSearch
 
 
 def get_results(keywords):
@@ -16,16 +17,22 @@ def get_results(keywords):
     search_results_reddit = subreddit.search(query)
 
     redditlinks = []
+    youtubelinks = []
     links = []
     count = 0
 
+    videosSearch = VideosSearch(query, limit = 5)
+
+    for videos in videosSearch.result()['result']:
+        youtubelinks.append([videos['title'], videos['link']])
+
     for entry in search_results_reddit:
         try:
-            redditlinks.append("https://www.reddit.com" + entry.permalink)
+            redditlinks.append([entry.title, "https://www.reddit.com" + entry.permalink])
             count += 1
         except:
             pass
-        if count == 2:
+        if count == 5:
             break
     
     for entry in search_results['entries']:
@@ -36,6 +43,4 @@ def get_results(keywords):
             pass
         if count == 12:
             break
-    return links, redditlinks
-
-print(get_results(["Coronavirus"]))
+    return links, redditlinks, youtubelinks

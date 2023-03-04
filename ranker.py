@@ -39,5 +39,5 @@ def rank_media(media_list, keywords):
             scores[media] = score
         except Exception as e:
                 print(f"Error processing {media}: {e}")
-    sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:5]
     return sorted_scores
