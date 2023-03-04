@@ -21,7 +21,6 @@ def get_results(keywords):
         except:
             pass
 
-        if count == 10:
+        if count == 5:
             break
-    print(len(links))
     return links
