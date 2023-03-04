@@ -66,35 +66,37 @@ function App() {
 
   return (
     <div className="bg-darkblue h-screen m-0 p-0 text-white font-thin flex flex-col">
-      <Navbar />
-      <div className="w-4xl flex align-center justify-center align-center flex-grow">
-        <div className="flex align-center justify-center">
-          <input className="bg-gray-50 border border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block h-10 w-auto p-2 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5"
+      <Navbar/>
+        <div className="w-4xl flex flex-col justify-center items-center flex-grow">
+        <div className="flex flex-row mb-40 w-1/2 align-center">
+          <input
+            className="bg-stone-300 border shadow-lg border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
             type="text"
             value={keywords}
             onChange={(e) => {
               setKeywords(e.target.value);
             }}
           />
-          <button class="bg-transparent hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded w-full ml-5 h-10"
+          <button
+            class="bg-transparent transition hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-5 h-10"
             Button
-            onClick={handleClick}>Submit
+            onClick={handleClick}
+          >
+            Submit
           </button>
         </div>
-        {
-          showOutputBox && (
-            <div className="output-box">
-              {paras.length > 1 &&
-                paras.map((para, i) => {
-                  if (i !== paras.length - 1) return <p>{para}</p>;
-                  return <></>;
-                })}
-              <p ref={textRef}></p>
-            </div>
-          )
-        }
-      </div >
-    </div >
+        {showOutputBox && (
+          <div className="bg-normalblue transition ease-in-out w-1/2 h-screen p-10 font-normal rounded-xl">
+            {paras.length > 1 &&
+              paras.map((para, i) => {
+                if (i !== paras.length - 1) return <p>{para}</p>;
+                return <></>;
+              })}
+            <p ref={textRef}></p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
