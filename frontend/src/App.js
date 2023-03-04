@@ -65,7 +65,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="mt-5 mb-5 container">
       <h1>News Aggregator by Hackstreet Bois</h1>
       <>
         <input
