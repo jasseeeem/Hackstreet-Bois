@@ -1,6 +1,9 @@
 # News Bytes
 A news aggregator application made for the 2023 Hackathon conducted by JMR Infotech
 
+## Prerequisites
+Make sure you have CUDA installed and configured properly
+
 ## Installation
 
 Clone the repository
