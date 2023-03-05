@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&")
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.video-player {
+  width: 200px;
+  height: auto;
+  /* padding-bottom: 56.25%;  */
+}
+.video-player iframe {
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  width: 200px; 
+  height: auto;
+}

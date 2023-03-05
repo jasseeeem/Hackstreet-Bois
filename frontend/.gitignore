@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-news_report.txt
-newaggs.py
-newsaggs1.py
-newsaggs2.py
-newsaggs3.py
-env/
-__pycache__/
-=======
-env
-__pychache__
-
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -33,4 +21,3 @@ __pychache__
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
->>>>>>> frontend

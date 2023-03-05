@@ -4,10 +4,12 @@ import newspaper
 import math
 from tqdm import tqdm
 
-def writeSummary(links):
+def init_summarizer():
     device = torch.device("cuda")
     summarizer = pipeline("summarization", device=device)
-    
+    return summarizer,device
+
+def writeSummary(summarizer,device,links):
     contents = []
     for link in links:
         try:
