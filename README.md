@@ -1,15 +1,24 @@
-# Name TBD
+# News Bytes
 A news aggregator application made for the 2023 Hackathon conducted by JMR Infotech
 
 ## Installation
 
-Clone the repository and run the following command after activating your virtual enviroment
+Clone the repository
+
+### Server
+
+Run the following command after activating your virtual enviroment
 
 `pip install -r requirements.txt`
 
+### Frontend
+Navigate to the frontend folder and do the following
+`cd frontend`
+`npm i`
+
 ## Usage
 
-Open the index.html file on your browser after running the backend.py file.
+Run the server.py file and then run `npm start` in the frontend folder
 
 Enter keywords into the search bar and click on Go.
 
