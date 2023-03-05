@@ -37,7 +37,7 @@ def get_results(keywords):
     
     for entry in search_results['entries']:
         try:
-            links.append(entry.link)
+            links.append([entry.title,entry.link])
             count += 1
         except:
             pass

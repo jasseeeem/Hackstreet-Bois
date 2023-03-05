@@ -9,6 +9,7 @@ def get_website_score(url, keywords):
     soup = BeautifulSoup(html, 'html.parser')
     text = soup.get_text().lower()
     score = 0
+    print(keywords)
     for i in range(len(keywords)):
         weight = 1 + 0.1 * i
         count = text.count(keywords[i].lower())
