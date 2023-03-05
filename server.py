@@ -33,6 +33,7 @@ def handle_message(data):
     links = [x[1] for x in articlelinks]
     ytlink= rank_media_yt(youtubelinks, data)
     result = writeSummary(summarizer,device,rank_media(links, data))
+    print(articlelinks)
     emit('paras', {'para': result,"youtubelinks":ytlink, "redditlinks": redditlinks,"articlelinks":articlelinks})
 
 @socketio.on("disconnect")

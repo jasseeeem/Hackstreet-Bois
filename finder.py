@@ -21,10 +21,12 @@ def get_results(keywords):
     links = []
     count = 0
 
-    videosSearch = VideosSearch(query, limit = 5)
+    videosSearch = VideosSearch(query, limit = 3)
 
     for videos in videosSearch.result()['result']:
         youtubelinks.append([videos['title'], videos['link']])
+
+    youtubelinks = youtubelinks[:3]
 
     for entry in search_results_reddit:
         try:
@@ -32,12 +34,12 @@ def get_results(keywords):
             count += 1
         except:
             pass
-        if count == 5:
+        if count == 3:
             break
     
     for entry in search_results['entries']:
         try:
-            links.append([entry.title,entry.link])
+            links.append([entry.title,entry.link,entry.source.href])
             count += 1
         except:
             pass

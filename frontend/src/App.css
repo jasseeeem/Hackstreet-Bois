@@ -76,12 +76,11 @@ body {
 
 .output-box {
   background-color: lightgray;
-  /* width: 75%; */
-  /* height: 60vh; */
   background-color: var(--gray);
   border-radius: 8px;
   box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.1);
 }
 *::-webkit-scrollbar{
   width: 2px;
+  height: 4px;
 }

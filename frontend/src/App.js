@@ -1,10 +1,11 @@
 import "./App.css";
-// import HttpCall from "./components/HttpCall";
 import Navbar from "./components/Navbar";
 import { io } from "socket.io-client";
 import { useEffect, useState, useRef } from "react";
 import Typed from "typed.js";
 import { TagsInput } from "react-tag-input-component";
+import YouTube from 'react-youtube';
+import {BsReddit} from 'react-icons/bs'
 
 const socket = io("http://localhost:5001/", {
   transports: ["websocket"],
@@ -48,7 +49,6 @@ function App() {
   };
 
   useEffect(() => {
-    return;
     if (loading) {
       const typed = new Typed(loadingTextRef.current, {
         strings: ['Fetching news articles and posts...','Combining the results...','Summarising the results...'],
@@ -66,7 +66,7 @@ function App() {
       setLoading(true)
       const typed = new Typed(textRef.current, {
         strings: [summary],
-        typeSpeed: 15,
+        typeSpeed: 10,
         showCursor: false,
         loop: false,
         onComplete: () => {
@@ -95,12 +95,41 @@ function App() {
       setYoutubeLinks(data.youtubelinks);
       setRedditLinks(data.redditlinks);
       setArticleLinks(data.articlelinks);
+      console.log(data.redditLinks);
     });
 
     return function cleanup() {
       socket.disconnect();
     };
   }, []);
+
+  const getHostname = (link) => {
+    const url = new URL(link);
+    let hostname = url.hostname;
+    if (hostname.startsWith("www.")) {
+      hostname = hostname.slice(4);
+    }
+    return hostname;
+  }
+
+  function getVideoId(link) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|\?v=)([^#\&\?]*).*/;
+    const match = link.match(regExp);
+    if (match && match[2].length === 11) {
+      return match[2];
+    } else {
+      console.error('Invalid YouTube video link:', link);
+      return null;
+    }
+  }
+
+  function trimString(str) {
+    if (str.length > 80) {
+      return str.slice(0, 80) + '...';
+    } else {
+      return str;
+    }
+  }
 
   return (
     <div className="static divide-y divide-y-white bg-darkblue h-screen m-0 p-0 text-white font-thin flex flex-col">
@@ -134,25 +163,31 @@ function App() {
           >
             <p ref={loadingTextRef} className="whitespace-pre-wrap"></p>
             <p ref={textRef} className="whitespace-pre-wrap"></p>
-            {showLinks && <div className="animate-appear">
-            <div className="flex flex-col">
-              
-              {articleLinks.length >0 && articleLinks.map((element) => {
-                return <a href={element[1]} key={element[1]}>{element[0]}</a>
-              })}
+            {showLinks && <hr className="color-lightblue opacity-20 my-5"></hr>}
+            {showLinks && 
+              <div className="animate-appear">
+                {articleLinks.length >0 &&
+                  <div className="flex flex-row flex-wrap space-x-2 space-y-2 items-center mt-4"> 
+                    <span className="whitespace-nowrap mt-2">Learn More:</span>
+                      {articleLinks.map((element) => {
+                        return <a className="px-2 py-1 bg-lightblue text-sm text-darkblue no-underline rounded-md hover:underline hover:cursor-pointer transition" href={element[1]} key={element[1]}>{getHostname(element[2])}</a>
+                      })}
+                  </div>
+                }
+                <div className="flex flex-row space-x-4 flex-wrap mt-4 rounded-md">
+                  {youtubeLinks.length >0 && youtubeLinks.map((element) => {
+                    return <div className="video-player">
+                              <YouTube videoId={getVideoId(element[1])} />
+                            </div>
+                  })}
+                </div>
+                <div className="flex flex-col space-y-2 mt-4">
+                  {redditLinks.length > 0 && redditLinks.map((element) => {
+                    return <a className="flex flex-row items-center space-x-2 px-2 py-1 bg-lightblue text-sm text-darkblue no-underline rounded-md hover:underline hover:cursor-pointer transition" href={element[1]} key={element[1]}><BsReddit size="20" /><span>{trimString(element[0])}</span></a>
+
+                  })}
               </div>
-              <div className="flex flex-col">
-              
-            {youtubeLinks.length >0 && youtubeLinks.map((element) => {
-              return <a href={element[1]} key={element[1]}>{element[0]}</a>
-            })}
-            </div>
-            <div className="flex flex-col">
-            {redditLinks.length > 0 && redditLinks.map((element) => {
-              return <a href={element[1]} key={element[1]}>{element[0]}</a>
-            })
-            }
-            </div></div>}
+            </div>}
           </div>
         )}
       </div>
